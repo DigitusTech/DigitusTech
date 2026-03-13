@@ -344,19 +344,36 @@
         </section>
 
         <section id="newsletter" class="newsletter-section">
-            <div class="container fade-in">
-                <div class="newsletter-box">
-                    <h2>Get new posts in your inbox</h2>
-                    <p>No spam, no fluff. Just one thoughtful email every two weeks.</p>
-                    <form id="subscribe-form" class="newsletter-form">
-                        <input type="email" placeholder="email@address.com" required aria-label="Email Address">
-                        <button type="submit" class="btn btn-primary">Subscribe</button>
-                    </form>
-                    <p class="form-footer">Join 5,000+ readers.</p>
-                </div>
-            </div>
-        </section>
+    <div class="container fade-in">
+        <div class="newsletter-box">
 
+            <h2>Get new posts in your inbox</h2>
+            <p>No spam, no fluff. Just one thoughtful email every two weeks.</p>
+
+            <form id="subscribe-form"
+                  class="newsletter-form"
+                  action="https://formspree.io/f/xvzwpqwj"
+                  method="POST">
+
+                <input 
+                    type="email" 
+                    name="email"
+                    placeholder="email@address.com" 
+                    required 
+                    aria-label="Email Address">
+
+                <button type="submit" class="btn btn-primary">
+                    Subscribe
+                </button>
+
+            </form>
+
+            <p class="form-footer">Join 5,000+ readers.</p>
+
+        </div>
+    </div>
+        </section>
+        
         <section id="about" class="about-section">
             <div class="container">
                 <div class="about-grid fade-in">
@@ -437,12 +454,21 @@
             });
 
             // 4. Newsletter Validation Mockup
-            const form = document.getElementById('subscribe-form');
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = form.querySelector('input').value;
-                alert(`Thanks for subscribing, ${email}! In a real app, this would send to your backend.`);
-                form.reset();
+            document.getElementById("subscribe-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+
+    fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(() => {
+        alert("Thanks for subscribing to CMA ZAMAN!");
+        form.reset();
+    });
             });
 
             // 5. Back to Top Button
@@ -453,5 +479,4 @@
         });
     </script>
 </body>
-  </html>
-  
+</html>
